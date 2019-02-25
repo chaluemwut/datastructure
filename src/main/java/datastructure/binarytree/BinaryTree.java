@@ -22,6 +22,8 @@ public class BinaryTree {
         }
     }
 
+    Node root;
+
     public int height() {
         return height(root);
     }
@@ -42,6 +44,5 @@ public class BinaryTree {
         return 1 + Math.max(height(node.left), height(node.right));
     }
 
-    Node root;
 
 }

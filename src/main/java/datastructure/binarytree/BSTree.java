@@ -20,8 +20,32 @@ public class BSTree extends BinaryTree {
         return ((Comparable) a).compareTo(b);
     }
 
+    public void add(Object e) {
+        Node newNode = new Node(e, null, null);
+        if (root == null) root = newNode;
+        else {
+            Node p = null, r = root;
+            while (r != null) {
+                int cmp = compare(e, r.element);
+                if (cmp < 0) {
+                    p = r;
+                    r = r.left;
+                } else if (cmp > 0) {
+                    p = r;
+                    r = r.right;
+                } else return;
+            }
+            if (compare(e, p.element) < 0)
+                p.left = newNode;
+            else
+                p.right = newNode;
+        }
+        size++;
+    }
+
     public Object get(Object e) {
-        return getNode(root, e);
+        Node node = getNode(root, e);
+        return node == null ? null : node.element;
     }
 
     Node getNode(Node r, Object e) {
@@ -52,29 +76,6 @@ public class BSTree extends BinaryTree {
             r = r.right;
         }
         return r.element;
-    }
-
-    public void add(Object e) {
-        Node newNode = new Node(e, null, null);
-        if (root == null) root = newNode;
-        else {
-            Node p = null, r = root;
-            while (r != null) {
-                int cmp = compare(e, r.element);
-                if (cmp < 0) {
-                    p = r;
-                    r = r.left;
-                } else if (cmp > 0) {
-                    p = r;
-                    r = r.right;
-                } else return;
-            }
-            if (compare(e, p.element) < 0)
-                p.left = newNode;
-            else
-                p.right = newNode;
-        }
-        size++;
     }
 
     public void remove(Object e) {
